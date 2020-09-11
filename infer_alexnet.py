@@ -5,7 +5,7 @@ import caffe
 import cv2    #这里引入CV2
 
 # load image, switch to BGR, subtract mean, and make dims C x H x W for Caffe
-im = Image.open("/home/12644662159148.jpg")
+im = Image.open("./data/bdd100k/seg/images/train/b2be7200-b6f7fe0a.jpg")
 # im = Image.open('/home/FCN_via_keras/dataset/VOCdevkit/VOC2012/JPEGImages/2012_003382.jpg')#此处填写需要测试的图片的路径
 # im = Image.open('/home/seg_train_images/train_2234.jpg')
 in_ = np.array(im, dtype=np.float32)
@@ -15,7 +15,8 @@ in_ -= np.array((125.92085,125.92085,125.92085))#测试图片的均值BGR传入
 in_ = in_.transpose((2,0,1))
 # print(in_.shape)
 # load net
-net = caffe.Net('/home/fcn.berkeleyvision.org/voc-fcn-alexnet/deploy.prototxt', '/home/fcn.berkeleyvision.org/voc-fcn-alexnet/fcn-alexnet-pascal.caffemodel', caffe.TEST)
+# net = caffe.Net('/home/fcn.berkeleyvision.org/voc-fcn-alexnet/deploy.prototxt', '/home/fcn.berkeleyvision.org/voc-fcn-alexnet/fcn-alexnet-pascal.caffemodel', caffe.TEST)
+net = caffe.Net('/home/fcn.berkeleyvision.org/voc-my-fcn-alexnet/deploy.prototxt', './voc-my-fcn-alexnet/snapshot/train_iter_32000.caffemodel', caffe.TEST)
 # shape for input (data blob is N x C x H x W), set data   #这里提示我们NCHW分别是
 #N:即batch_size
 #C:即通道数，channels
@@ -46,7 +47,7 @@ for yy in range(y):
 print(result.shape)
 print(origin.shape)
 # result = origin
-result = ((0.6 * origin) + (0.4 * result)).astype("uint8")
+# result = ((0.6 * origin) + (0.4 * result)).astype("uint8")
 # dst = cv2.addWeighted(result, 0.5, origin, 0.5, 120)
 result = result.clip(0, 255)
 

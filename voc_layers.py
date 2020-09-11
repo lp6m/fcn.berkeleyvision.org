@@ -330,6 +330,7 @@ class BDD100KDataLayer(caffe.Layer):
         im =  Image.open('{}/{}.jpg'.format(self.bdd100k_image_dir, idx))
         in_ = np.array(im, dtype=np.float32)
         in_ = in_[:,:,::-1]
+        in_ = cv2.resize(in_, (224, 224))
         in_ -= self.mean
         in_ = in_.transpose((2,0,1))
         return in_
@@ -349,6 +350,8 @@ class BDD100KDataLayer(caffe.Layer):
         img = np.where(img == 11, 1, img)
         img = np.where(img == 6, 2, img)
         img = np.where(img == 13, 3, img)
+        import cv2
+        img = cv2.resize(img, (224, 224), interpolation=cv2.INTER_NEAREST)
         label = img[np.newaxis, ...]
         return label
 
