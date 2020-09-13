@@ -2,6 +2,7 @@ import caffe
 
 import numpy as np
 from PIL import Image
+import cv2
 
 import random
 
@@ -350,7 +351,6 @@ class BDD100KDataLayer(caffe.Layer):
         img = np.where(img == 11, 1, img)
         img = np.where(img == 6, 2, img)
         img = np.where(img == 13, 3, img)
-        import cv2
         img = cv2.resize(img, (224, 224), interpolation=cv2.INTER_NEAREST)
         label = img[np.newaxis, ...]
         return label

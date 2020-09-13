@@ -211,7 +211,7 @@ layer {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 21
+    num_output: 5
     pad: 0
     kernel_size: 1
   }
@@ -225,7 +225,7 @@ layer {
     lr_mult: 0
   }
   convolution_param {
-    num_output: 21
+    num_output: 5
     bias_term: false
     kernel_size: 63
     stride: 32
