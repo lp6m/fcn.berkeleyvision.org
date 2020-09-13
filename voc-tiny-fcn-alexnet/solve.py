@@ -15,14 +15,14 @@ except:
     pass
 
 # weights = '../ilsvrc-nets/fcn-alexnet-pascal.caffemodel'
-weights = './snapshot/train_iter_100000.caffemodel'
+# weights = './snapshot/train_iter_100000.caffemodel'
 
 # init
 # caffe.set_device(int(sys.argv[1]))
 caffe.set_mode_gpu()
 
 solver = caffe.SGDSolver('./solver.prototxt')
-solver.net.copy_from(weights)
+# solver.net.copy_from(weights)
 # pretrained = caffe.Net('../voc-fcn-alexnet/deploy.prototxt', weights, caffe.TRAIN)
 # layers_to_copy = ['conv1', 'conv2', 'conv3', 'conv4', 'conv5', 'fc6', 'fc7']
 # for layer in layers_to_copy:

@@ -88,7 +88,7 @@ def calculate_offsets(layers):
 
 tiny_alexnet = [
     #name, padding, stride, kernel
-    ['conv1', 34, 4, 11],
+    ['conv1', 36, 4, 11],
     ['maxpool1', 0, 2, 3],
     ['conv2', 2, 1, 5],
     ['maxpool2', 0, 2, 3],

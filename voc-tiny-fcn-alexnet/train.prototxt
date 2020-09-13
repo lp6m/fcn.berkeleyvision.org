@@ -6,7 +6,7 @@ layer {
   python_param {
     module: "voc_layers"
     layer: "BDD100KDataLayer"
-    param_str: "{\'bdd100k_label_dir\': \'../data/bdd100k/seg/labels/train/\', \'bdd100k_image_dir\': \'../data/bdd100k/seg/images/train/\', \'seed\': 1337, \'filelist\': \'../data/bdd100k/seg/train.txt\', \'mean\': (104.00699, 116.66877, 122.67892)}"
+    param_str: "{\'resize_size\':227, \'bdd100k_label_dir\': \'../data/bdd100k/seg/labels/train/\', \'bdd100k_image_dir\': \'../data/bdd100k/seg/images/train/\', \'seed\': 1337, \'filelist\': \'../data/bdd100k/seg/train.txt\', \'mean\': (104.00699, 116.66877, 122.67892)}"
   }
 }
 layer {
@@ -15,8 +15,8 @@ layer {
   bottom: "data"
   top: "conv1"
   convolution_param {
-    num_output: 96
-    pad: 100
+    num_output: 64
+    pad: 34
     kernel_size: 11
     group: 1
     stride: 4
@@ -56,7 +56,7 @@ layer {
   bottom: "norm1"
   top: "conv2"
   convolution_param {
-    num_output: 256
+    num_output: 64
     pad: 2
     kernel_size: 5
     group: 2
@@ -97,7 +97,7 @@ layer {
   bottom: "norm2"
   top: "conv3"
   convolution_param {
-    num_output: 384
+    num_output: 64
     pad: 1
     kernel_size: 3
     group: 1
@@ -116,7 +116,7 @@ layer {
   bottom: "conv3"
   top: "conv4"
   convolution_param {
-    num_output: 384
+    num_output: 64
     pad: 1
     kernel_size: 3
     group: 2
@@ -135,7 +135,7 @@ layer {
   bottom: "conv4"
   top: "conv5"
   convolution_param {
-    num_output: 256
+    num_output: 64
     pad: 1
     kernel_size: 3
     group: 2
@@ -165,9 +165,9 @@ layer {
   bottom: "pool5"
   top: "fc6"
   convolution_param {
-    num_output: 4096
+    num_output: 64
     pad: 0
-    kernel_size: 6
+    kernel_size: 3
     group: 1
     stride: 1
   }
@@ -193,7 +193,7 @@ layer {
   bottom: "fc6"
   top: "fc7"
   convolution_param {
-    num_output: 4096
+    num_output: 64
     pad: 0
     kernel_size: 1
     group: 1
@@ -257,7 +257,7 @@ layer {
   top: "score"
   crop_param {
     axis: 2
-    offset: 18
+    offset: 34
   }
 }
 layer {
