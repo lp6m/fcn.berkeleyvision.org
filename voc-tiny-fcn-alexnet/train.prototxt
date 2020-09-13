@@ -16,7 +16,7 @@ layer {
   top: "conv1"
   convolution_param {
     num_output: 64
-    pad: 34
+    pad: 36
     kernel_size: 11
     group: 1
     stride: 4
@@ -257,7 +257,7 @@ layer {
   top: "score"
   crop_param {
     axis: 2
-    offset: 34
+    offset: 2
   }
 }
 layer {
