@@ -48,7 +48,7 @@ class VOCSegDataLayer(caffe.Layer):
             raise Exception("Do not define a bottom.")
 
         # load indices for images and labels
-        split_f  = '{}/ImageSets/Segmentation/{}.txt'.format(self.voc_dir,
+        split_f  = '{}/{}.txt'.format(self.voc_dir,
                 self.split)
         self.indices = open(split_f, 'r').read().splitlines()
         self.idx = 0
@@ -154,7 +154,7 @@ class SBDDSegDataLayer(caffe.Layer):
         self.mean = np.array(params['mean'])
         self.random = params.get('randomize', True)
         self.seed = params.get('seed', None)
-
+       
         # two tops: data and label
         if len(top) != 2:
             raise Exception("Need to define two tops: data and label.")
@@ -271,6 +271,7 @@ class BDD100KDataLayer(caffe.Layer):
         self.mean = np.array(params['mean'])
         self.random = params.get('randomize', True)
         self.seed = params.get('seed', None)
+        self.resize_size = int(params.get('size', 224))
 
         # two tops: data and label
         if len(top) != 2:
@@ -331,7 +332,7 @@ class BDD100KDataLayer(caffe.Layer):
         im =  Image.open('{}/{}.jpg'.format(self.bdd100k_image_dir, idx))
         in_ = np.array(im, dtype=np.float32)
         in_ = in_[:,:,::-1]
-        in_ = cv2.resize(in_, (224, 224))
+        in_ = cv2.resize(in_, (self.resize_size, self.resize_size))
         in_ -= self.mean
         in_ = in_.transpose((2,0,1))
         return in_
@@ -351,7 +352,7 @@ class BDD100KDataLayer(caffe.Layer):
         img = np.where(img == 11, 1, img)
         img = np.where(img == 6, 2, img)
         img = np.where(img == 13, 3, img)
-        img = cv2.resize(img, (224, 224), interpolation=cv2.INTER_NEAREST)
+        img = cv2.resize(img, (self.resize_size, self.resize_size), interpolation=cv2.INTER_NEAREST)
         label = img[np.newaxis, ...]
         return label
 
